@@ -1,0 +1,6 @@
+show_ip_dev
+
+Development environment defined using Vagrant and Docker.
+
+Requirements:
+* Internet access for Docker images.

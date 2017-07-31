@@ -1,0 +1,54 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#######################################
+#                                     #
+# Host Vagrantfile for show_ip        #
+# service python dev env              #
+# Leverages Docker.                   #
+# This should support host-agnostic   #
+#   operation.                        #
+#                                     #
+#                                     #
+#######################################
+
+Vagrant.require_version ">= 1.8.0"
+VAGRANTFILE_API_VERSION = "2"
+
+time = Time.new
+timestamp = time.strftime("%Y%m%d")
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    # Disable synced folders for the Docker container
+    # (prevents an NFS error on "vagrant up")
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+
+    # Host name for VM
+    config.vm.hostname = "docker"
+
+    # Skip checking for an updated Vagrant box
+    config.vm.box_check_update = false
+
+    # Always use Vagrant's default insecure key
+    config.ssh.insert_key = false
+
+    # Spin up a "host box" for use with the Docker provider
+    # and then provision it with Docker
+    config.vm.box = "ubuntu/xenial64"
+    config.vm.provision "docker"
+
+    # Forward ports for ssh, PostgreSQL and RabitMQ.
+    config.vm.network :forwarded_port, guest: 4222, host: 4222
+
+    config.vm.provider "virtualbox" do |v|
+        # insert your custom virtualbox configuration here
+        #
+        v.memory                = 2048
+        v.cpus                  = 1
+    end
+
+end

@@ -1,0 +1,19 @@
+#
+# .dockerignore
+#
+
+# Ignore ourselves.
+Dockerfile
+.dockerignore
+
+# Ignore vagrant stuff.
+.vagrant
+
+# Ignore git stuff.
+.git
+
+# Ignore vim swp files.
+**/*.swp
+
+# Ignore local src directory.
+src
