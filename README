@@ -1,3 +1,4 @@
+*** DEPRECATED - migrated to GitLab ***
 show_ip_dev
 
 Development environment defined using Vagrant and Docker.
